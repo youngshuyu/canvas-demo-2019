@@ -2,7 +2,7 @@ var yyy = document.getElementById('xxx');
 var context = yyy.getContext('2d')
 
 autoSetCanvas(yyy)
-listenToMouse(yyy)
+listenToUser(yyy)
 var eraserEnabled = false
 eraser.onclick = function(){
   eraserEnabled = true  
@@ -44,13 +44,47 @@ function setCanvasSize (){
   yyy.height = pageHeight
   }
 }
-function listenToMouse(canvas){
+//监听鼠标事件
+function listenToUser(canvas){
     var using = false
     var lastPoint = {
     x:undefined,
     y:undefined
     }
-    //按下鼠标
+    //特性检测
+    if (document.body.ontouchstart !== undefined){
+        //触屏设备
+          canvas.ontouchstart = function(aaa){
+            var x = aaa.touches[0].clientX
+            var y = aaa.touches[0].clientY
+             using = true 
+            if(eraserEnabled){
+            context.clearRect(x-5,y-5,10,10)
+            }else{
+            lastPoint = {"x":x,"y":y}
+            }
+
+        }
+          canvas.ontouchmove = function(aaa){
+            var x = aaa.touches[0].clientX
+            var y = aaa.touches[0].clientY
+            if (!using){
+                return
+            }
+            if(eraserEnabled){
+                context.clearRect(x-5,y-5,10,10)
+            }else{
+                var newPoint = {"x":x,"y":y}
+                drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+                lastPoint = newPoint       
+            }
+        }
+          canvas.ontouchend = function(aaa){
+            using = false
+        }
+    }else{
+        //非触屏设备
+         //按下鼠标
     
     canvas.onmousedown = function(aaa){
     
@@ -82,4 +116,5 @@ function listenToMouse(canvas){
     canvas.onmouseup = function(aaa){
     using = false
     }
+    }    
 }
