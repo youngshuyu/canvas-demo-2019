@@ -2,16 +2,36 @@
 <html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>小画板</title>
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
     <link rel="stylesheet" href="./canvas.css">
+    <script src="//at.alicdn.com/t/font_1024369_3tkis9te8cl.js"></script>
 </head>
   
 <body>
  <canvas id="xxx" ></canvas>
  <div id="actions" class="actions">
-  <button id="eraser">橡皮擦</button>
-  <button id=brush>画笔</button>
+ <svg  id="brush"class="active icon" >
+ <use xlink:href="#icon-pen"></use>
+ </svg>
+ <svg id="eraser" class="icon" >
+ <use xlink:href="#icon-eraser"></use>
+ </svg>
+ <svg id="clear" class="icon" >
+ <use xlink:href="#icon-cleared"></use>
+ </svg>
+ <svg id="save" class="icon" >
+<use xlink:href="#icon-save"></use>
+</svg>
 </div>
+<ol class="colors">
+    <li  id=red class="red"></li>
+    <li id=yellow class="yellow"></li>
+    <li id=blue class="blue"></li>
+</ol>
+<ol class="size">
+    <li id="thin" class="thin"></li>
+    <li id="thick" class="thick"></li>
+</ol>
 </body><script src="./canvas.js"></script>
 </html>

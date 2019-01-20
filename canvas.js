@@ -4,27 +4,71 @@ var context = yyy.getContext('2d')
 autoSetCanvas(yyy)
 listenToUser(yyy)
 var eraserEnabled = false
-eraser.onclick = function(){
-  eraserEnabled = true  
-  actions.className = 'actions x'
-}
 brush.onclick = function(){
   eraserEnabled = false
-  actions.className = 'actions'
-  }
+  brush.classList.add('active')
+  eraser.classList.remove('active')
+}
+eraser.onclick = function(){
+  eraserEnabled = true
+  eraser.classList.add('active')
+  brush.classList.remove('active')
+}
+//保存
+save.onclick = function(){
+  var url = yyy.toDataURL("image/png")
+  var a = document.createElement('a')
+  document.body.appendChild(a)
+  a.href = url
+  a.download = '我的作品'
+  a.target = '_blank'
+  a.click()
+}
+//清屏
+clear.onclick = function(){
+  context.clearRect(0, 0, yyy.width, yyy.height);
+}
+//选择线宽
+var lineWidth
+thin.onclick = function(){
+  context.lineWidth = 5
+}
+thick.onclick = function(){
+  context.lineWidth = 10
+}
+//选择颜色
+red.onclick = function(){
+  context.fillStyle = 'red'
+  context.strokeStyle = 'red'
+  red.classList.add('active')
+  yellow.classList.remove('active')
+  blue.classList.remove('active')
+}
+yellow.onclick = function(){
+  context.fillStyle = 'yellow'
+  context.strokeStyle = 'yellow'
+  yellow.classList.add('active')
+  red.classList.remove('active')
+  blue.classList.remove('active')
+}
+blue.onclick = function(){
+  context.fillStyle = 'blue'
+  context.strokeStyle = 'blue'
+  blue.classList.add('active')
+  red.classList.remove('active')
+  yellow.classList.remove('active')
+}
 //画圈
 function drawCircle(x,y,radius){
   context.beginPath()
-  context.fillStyle = 'white'
   context.arc(x,y,radius,0,Math.PI*2)
   context.fill()
   }
 //画直线
 function drawLine(x1,y1,x2,y2){
   context.beginPath()
-  context.strokeStyle = 'white'
   context.moveTo(x1,y1)//起点
-  context.lineWidth = 5
+  context.lineWidth = lineWidth
   context.lineTo(x2,y2)//终点
   context.stroke()
   context.closePath() 
