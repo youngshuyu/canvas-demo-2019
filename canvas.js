@@ -144,7 +144,7 @@ function listenToUser(canvas){
     //移动鼠标
     canvas.onmousemove = function(aaa){
         var x = aaa.clientX
-        var y = aaa.clientY
+        var y = aaa.clientY 
         if (!using){
             return
         }
